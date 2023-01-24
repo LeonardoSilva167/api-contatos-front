@@ -1,0 +1,27 @@
+.container{
+    // width: 1000px;
+    // height: auto;
+    min-width: 370px;
+    min-height: 500px;
+    // min-height: 500px;
+    // max-width: 50%;
+    padding: 25px 40px;
+    background: $branco;
+    box-shadow: 0px 4px 4px rgba(0,0,0,0.25);
+    box-sizing: border-box;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+.container p {
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;              /* "overflow" value must be different from "visible" */
+  
+    // text-overflow:    ellipsis;
+  }
