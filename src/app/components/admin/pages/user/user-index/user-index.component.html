@@ -22,8 +22,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of users">
-                                
+                            <tr *ngFor="let user of users" >
                                 <td>{{user['name']}}</td>
                                 <td>{{user['email']}}</td>
                                 <td>{{user['telefone']}}</td>
@@ -31,9 +30,7 @@
                                 <td  class="text-center">
                                     <a [routerLink]="['visualizar', user['id']]" class="btn btn-warning btn-sm">Visualizar</a>
                                     <a [routerLink]="['editar', user['id']]" class="btn btn-primary btn-sm">Editar</a>
-                                    <button class="btn btn-danger btn-sm" (click)="submitDelete(user['id'])">Remover</button>
-                                    <button class="btn btn-primary" data-toggle="confirmation">Confirmation</button>
-
+                                    <button class="btn btn-danger btn-sm" (click)="submitDelete(user['name'],user['id'])">Remover</button>
                                 </td>
                             </tr>
                         </tbody>

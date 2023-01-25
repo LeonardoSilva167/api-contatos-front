@@ -8,39 +8,39 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class UserIndexComponent implements OnInit {
 
-
-
   constructor(
     private userService: UserService,
   ){}
 
   public ngOnInit(): void {
-    this.getUsers();
+    this.getItems();
   }
 
   public msgError!: string;
   public users!: [];
 
-  public getUsers(){
+  public getItems(){
       this.userService.index().subscribe(res => {        
         this.users = res;
       })
 
   }
 
-  submitDelete(id: any){
-    // if(confirm("Dese "+name)) {
-    //   console.log("Implement delete functionality here");
-    // }
-    // $('[data-toggle=confirmation]').confirmation({
-    //   rootSelector: '[data-toggle=confirmation]',
-    //   // other options
-    // });
-  }
-  clickMethod(name: string) {
-    if(confirm("Are you sure to delete "+name)) {
-      console.log("Implement delete functionality here");
+  submitDelete(name: string, id: any){
+    if(confirm("Confirma exclusão de: "+name)) {
+      this.userService.delete({
+        id: id,
+      }).subscribe( res => {
+        this.deleteRow(id)
+      })
     }
   }
 
+  deleteRow(id: any){
+    for(let i = 0; i < this.users.length; ++i){
+      if (this.users[i]['id'] === id) {
+        this.users.splice(i,1);
+      }
+    }
+  }
 }

@@ -70,4 +70,18 @@ export class UserService {
         })
       )
     }
+    
+    public delete(payload: {id: any}): Observable<any>{
+      return this.http.delete<{ token: string}>(`${this.url}/user/delete/${payload.id}`).pipe(
+        map((res) => {
+          localStorage.removeItem('access_token');
+          localStorage.setItem('access_token', res.token)
+          return res;
+        }),
+        catchError((err) => {
+          if(err.error.message) return throwError(() => err.error.message); 
+          return throwError(() => "No Momento não estamos conseguindo validar estes dados, tente novamente mais tarde");
+        })
+      )
+    }
 }
