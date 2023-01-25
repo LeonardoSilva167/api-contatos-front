@@ -8,13 +8,15 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { HomeComponent } from './pages/home/home.component';
 
 
+
+
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,    
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
   ]
 })
 export class AdminModule { }

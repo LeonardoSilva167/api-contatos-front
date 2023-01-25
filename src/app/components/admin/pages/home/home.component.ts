@@ -19,7 +19,6 @@ export class HomeComponent implements OnInit {
   }
 
   public logout(){
-    console.log('sair')
     this.authService.logout();
   }
 }

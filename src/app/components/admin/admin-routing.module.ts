@@ -3,24 +3,20 @@ import { RouterModule, Routes } from '@angular/router';
 
 // Pages Components
 import { HomeComponent } from './pages/home/home.component';
+import { UserIndexComponent } from './pages/user/user-index/user-index.component';
+
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent 
+    component: HomeComponent ,
+    pathMatch: 'full',
   },
   {
-    path: 'dashboard',
-    component: HomeComponent 
-  },
-  {
-    path: 'account',
-    component: HomeComponent 
-  },
-  {
-    path: '',
-    component: HomeComponent 
-  },
+    path: 'admin/pessoas',
+    loadChildren: () => import('./pages/user/user.module').then((m) => m.UserModule),
+    // pathMatch: 'full',
+  }
 ];
 
 @NgModule({
