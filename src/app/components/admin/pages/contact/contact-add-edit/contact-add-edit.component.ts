@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from 'src/app/services/user/user.service';
+import { ContactService } from 'src/app/services/pages/contact/contact.service';
 
 @Component({
-  selector: 'app-user-add-edit',
-  templateUrl: './user-add-edit.component.html',
-  styleUrls: ['./user-add-edit.component.scss']
+  selector: 'app-contact-add-edit',
+  templateUrl: './contact-add-edit.component.html',
+  styleUrls: ['./contact-add-edit.component.scss']
 })
-export class UserAddEditComponent implements OnInit{
+export class ContactAddEditComponent implements OnInit{
 
-  public formUser: FormGroup = this.formBuilder.group({
+  public formContact: FormGroup = this.formBuilder.group({
     name: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     telefone: ['', [Validators.required]],
@@ -23,7 +23,7 @@ export class UserAddEditComponent implements OnInit{
   
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService,
+    private contactService: ContactService,
     private activatedRoute : ActivatedRoute,
   ){}
   
@@ -33,13 +33,13 @@ export class UserAddEditComponent implements OnInit{
     this.pagePath = this.activatedRoute.snapshot.url[0].path;
     
     if(this.isPageEdit()){
-      this.userShow();
+      this.showData();
     }
 
   }
 
   submitForm(){
-    if(this.formUser.valid){
+    if(this.formContact.valid){
       console.log(this.pageID && this.pagePath)
       if(this.isPageEdit()){
         console.log(this.isPageEdit())
@@ -51,8 +51,8 @@ export class UserAddEditComponent implements OnInit{
     }
   }
 
-  public userShow(){
-    this.userService.show({
+  public showData(){
+    this.contactService.show({
       id: this.pageID
     }).subscribe(res => {        
       console.log(res)
@@ -61,11 +61,11 @@ export class UserAddEditComponent implements OnInit{
   }
 
   submitCreate(){
-    this.userService.create({
-      name: this.formUser.value.name,
-      email: this.formUser.value.email,
-      telefone: this.formUser.value.telefone,
-      celular: this.formUser.value.celular,
+    this.contactService.create({
+      name: this.formContact.value.name,
+      email: this.formContact.value.email,
+      telefone: this.formContact.value.telefone,
+      celular: this.formContact.value.celular,
     }).subscribe({
       next: (res) => res,
       error: (e)=> (this.msgError = e),
@@ -73,12 +73,12 @@ export class UserAddEditComponent implements OnInit{
   }
 
   submitEdit(){
-    this.userService.edit({
+    this.contactService.edit({
       id: this.pageID,
-      name: this.formUser.value.name,
-      email: this.formUser.value.email,
-      telefone: this.formUser.value.telefone,
-      celular: this.formUser.value.celular,
+      name: this.formContact.value.name,
+      email: this.formContact.value.email,
+      telefone: this.formContact.value.telefone,
+      celular: this.formContact.value.celular,
     }).subscribe({
       next: (res) => res,
       error: (e)=> (this.msgError = e),
@@ -86,11 +86,11 @@ export class UserAddEditComponent implements OnInit{
   }
 
   setDataFields(data: any){
-    // this.formUser.setValue({
+    // this.formContact.setValue({
     //   name: data.name, 
     //   email: data.email
     // });
-    this.formUser.patchValue({
+    this.formContact.patchValue({
       name: data.name, 
       email: data.email, 
       telefone: data.telefone, 
@@ -103,5 +103,4 @@ export class UserAddEditComponent implements OnInit{
     return this.pageID && this.pagePath == 'editar';
   }
   
-
 }

@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="py-5 header-content">
+        <h2><a [routerLink]="['/admin']" >Home</a></h2>
+        <h2><a [routerLink]="['/admin/contatos']" >Contatos</a></h2>
+        <h2>Novo</h2>
+        <h6><a [routerLink]="['/admin/contatos']" >voltar</a></h6>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <form [formGroup]="formContact" (ngSubmit)="submitForm()" action="">
+                <div class="row">
+                    <div class="col-sm-3 col-xs-12">
+                        <label for="name" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="name" required                            
+                            formControlName="name">
+                    </div>
+                    <div class="col-sm-3 col-xs-12">
+                        <label for="email" class="form-label">Email Principal</label>
+                        <input type="email" class="form-control" placeholder="email@example.com" id="email" required
+                            formControlName="email">
+                    </div>
+                    <div class="col-sm-3 col-xs-12">
+                        <label for="telefone" class="form-label">Telefone</label>
+                        <input type="text" class="form-control" placeholder="()      -    " id="telefone" required
+                            formControlName="telefone">
+                    </div>
+                    <div class="col-sm-3 col-xs-12">
+                        <label for="celular" class="form-label">Celeular</label>
+                        <input type="text" class="form-control"  placeholder="()     -    " id="celular" required
+                            formControlName="celular">
+                    </div>
+                </div>
+                <br><br>
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <button class="btn btn-primary btn-sm" [disabled]="formContact.invalid">Salvar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

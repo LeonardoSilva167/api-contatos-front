@@ -15,7 +15,6 @@ import { UserViewComponent } from './user-view/user-view.component';
   declarations: [
     UserIndexComponent,
     UserAddEditComponent,
-    UserAddEditComponent,
     UserViewComponent,
   ],
   imports: [
