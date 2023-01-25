@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from '../home/home.component';
 import { UserAddEditComponent } from './user-add-edit/user-add-edit.component';
 import { UserIndexComponent } from './user-index/user-index.component';
+import { UserViewComponent } from './user-view/user-view.component';
 
 const routes: Routes = [
   {
@@ -17,7 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'visualizar/:id', 
-    component: UserIndexComponent, 
+    component: UserViewComponent, 
     pathMatch: 'full'
   },
   {
@@ -25,11 +26,6 @@ const routes: Routes = [
     component: UserAddEditComponent, 
     pathMatch: 'full'
   },
-  {
-    path: 'excluir/:id', 
-    component: UserIndexComponent, 
-    pathMatch: 'full'
-  }
 ];
 
 // path: 'edit/:id/details', 

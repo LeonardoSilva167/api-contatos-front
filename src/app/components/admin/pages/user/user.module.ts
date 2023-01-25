@@ -8,6 +8,7 @@ import { UserRoutingModule } from './user-routing.module';
 import { UserIndexComponent } from './user-index/user-index.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserAddEditComponent } from './user-add-edit/user-add-edit.component';
+import { UserViewComponent } from './user-view/user-view.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { UserAddEditComponent } from './user-add-edit/user-add-edit.component';
     UserIndexComponent,
     UserAddEditComponent,
     UserAddEditComponent,
+    UserViewComponent,
   ],
   imports: [
     CommonModule,
