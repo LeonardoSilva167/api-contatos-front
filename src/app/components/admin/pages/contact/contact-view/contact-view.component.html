@@ -1,1 +1,54 @@
-<p>contact-view works!</p>
+<div class="container">
+    <div class="py-5 header-content">
+        <h2><a [routerLink]="['/admin']">Home</a></h2>
+        <h2><a [routerLink]="['/admin/contacts']">Contacts</a></h2>
+        <h2>View</h2>
+        <h6><a [routerLink]="['/admin/contacts']">Back</a></h6>
+    </div>
+    <div class="py-5" class="btn-add">
+        <a [routerLink]="['/admin/contacts/new']" class="btn btn-success btn-sm">New</a>
+        <a [routerLink]="['/admin/contacts/edit', data.id]" class="btn btn-primary btn-sm">Edit</a>
+    </div>
+    <hr>
+    <br>
+    <div class="row g-2">
+        <div class="col-sm-4 col-xs-12 ml-3">
+            <h6>Contact</h6>
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="row">
+                        <label class="form-label col-sm-12 col-xs-12">Name: <span>{{data.name}}</span></label>
+                        <label class="form-label col-sm-12 col-xs-12">Email: <span>{{data.email}}</span></label>
+                        <label class="form-label col-sm-12 col-xs-12">Telephone: <span>{{data.telephone}}</span></label>
+                        <label class="form-label col-sm-12 col-xs-12">Cell Phone: <span>{{data.cell_phone}}</span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8 col-xs-12 ml-3">
+            <h6>Additional Contact</h6>
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="row">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Email</th>
+                                    <th>Telephone</th>
+                                    <th>Cell Phone</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of data.additional_contacts">
+                                    <td>{{item['email']}}</td>
+                                    <td>{{item['telephone']}}</td>
+                                    <td>{{item['cell_phone']}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

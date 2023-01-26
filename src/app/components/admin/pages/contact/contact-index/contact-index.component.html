@@ -1,36 +1,37 @@
 <div class="container">
     <div class="py-5 header-content">
         <h2><a [routerLink]="['/admin']" >Home</a></h2>
-        <h2>Contatos</h2>
-        <h6><a [routerLink]="['/admin/contatos']" >voltar</a></h6>
+        <h2>Contacts</h2>
+        <h6><a [routerLink]="['/admin']" >Back</a></h6>
     </div>
     <div class="py-5" class="btn-add">
-        <a [routerLink]="['novo']" class="btn btn-success btn-sm">Novo</a>
+        <a [routerLink]="['new']" class="btn btn-success btn-sm">New</a>
     </div>
-    <div class="card">
+    <hr>
+    <div class="card shadow-sm">
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12 col-xs-12">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Nome</th>
+                                <th>Name</th>
                                 <th>Email</th>
-                                <th>Telefone</th>
-                                <th>Celular</th>
-                                <th class="text-center">Ações</th>
+                                <th>Telephone</th>
+                                <th>Cell Phone</th>
+                                <th class="text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let contact of contacts" >
                                 <td>{{contact['name']}}</td>
                                 <td>{{contact['email']}}</td>
-                                <td>{{contact['telefone']}}</td>
-                                <td>{{contact['celular']}}</td>
+                                <td>{{contact['telephone']}}</td>
+                                <td>{{contact['cell_phone']}}</td>
                                 <td  class="text-center">
-                                    <a [routerLink]="['visualizar', contact['id']]" class="btn btn-warning btn-sm">Visualizar</a>
-                                    <a [routerLink]="['editar', contact['id']]" class="btn btn-primary btn-sm">Editar</a>
-                                    <button class="btn btn-danger btn-sm" (click)="submitDelete(contact['name'],contact['id'])">Remover</button>
+                                    <a [routerLink]="['view', contact['id']]" class="btn btn-warning btn-sm">View</a>
+                                    <a [routerLink]="['edit', contact['id']]" class="btn btn-primary btn-sm">Edit</a>
+                                    <button class="btn btn-danger btn-sm" (click)="submitDelete(contact['name'],contact['id'])">Delete</button>
                                 </td>
                             </tr>
                         </tbody>

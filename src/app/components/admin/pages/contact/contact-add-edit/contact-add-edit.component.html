@@ -1,43 +1,109 @@
 <div class="container">
     <div class="py-5 header-content">
-        <h2><a [routerLink]="['/admin']" >Home</a></h2>
-        <h2><a [routerLink]="['/admin/contatos']" >Contatos</a></h2>
-        <h2>Novo</h2>
-        <h6><a [routerLink]="['/admin/contatos']" >voltar</a></h6>
+        <h2><a [routerLink]="['/admin']">Home</a></h2>
+        <h2><a [routerLink]="['/admin/contacts']">Contacts</a></h2>
+        <h2>{{pageData.name }}</h2>
+        <h6><a [routerLink]="['/admin/contacts']">Back</a></h6>
     </div>
-    <div class="card">
-        <div class="card-body">
-            <form [formGroup]="formContact" (ngSubmit)="submitForm()" action="">
-                <div class="row">
-                    <div class="col-sm-3 col-xs-12">
-                        <label for="name" class="form-label">Nome</label>
-                        <input type="text" class="form-control" id="name" required                            
-                            formControlName="name">
-                    </div>
-                    <div class="col-sm-3 col-xs-12">
-                        <label for="email" class="form-label">Email Principal</label>
-                        <input type="email" class="form-control" placeholder="email@example.com" id="email" required
-                            formControlName="email">
-                    </div>
-                    <div class="col-sm-3 col-xs-12">
-                        <label for="telefone" class="form-label">Telefone</label>
-                        <input type="text" class="form-control" placeholder="()      -    " id="telefone" required
-                            formControlName="telefone">
-                    </div>
-                    <div class="col-sm-3 col-xs-12">
-                        <label for="celular" class="form-label">Celeular</label>
-                        <input type="text" class="form-control"  placeholder="()     -    " id="celular" required
-                            formControlName="celular">
+    <div class="row g-2">
+        <form [formGroup]="formContact" (ngSubmit)="submitForm()" action="">
+            <div class="row g-2">
+                <div class="col-sm-12 col-xs-12 ml-3">
+                    <h6>Contact</h6>
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3 col-xs-12">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name" required formControlName="name">
+                                </div>
+                                <div class="col-sm-3 col-xs-12">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" placeholder="email@example.com" id="email"
+                                        required formControlName="email">
+                                </div>
+                                <div class="col-sm-3 col-xs-12">
+                                    <label for="telephone" class="form-label">Telephone</label>
+                                    <input type="text" class="form-control" placeholder="()      -    " id="telefone"
+                                        required formControlName="telephone">
+                                </div>
+                                <div class="col-sm-3 col-xs-12">
+                                    <label for="cell_phone" class="form-label">Cell Phone</label>
+                                    <input type="text" class="form-control" placeholder="()     -    " id="cell_phone"
+                                        required formControlName="cell_phone">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <br><br>
-                <div class="row">
-                    <div class="col-sm-6 col-xs-12">
-                        <button class="btn btn-primary btn-sm" [disabled]="formContact.invalid">Salvar</button>
+            </div>
+            <br><br>
+            <div class="row g-2">
+                <h6>Additional Contact</h6>
+                <div class="col-sm-4 col-xs-12 ml-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <form [formGroup]="formAdditionalContact">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <label for="additional_email" class="form-label">Email</label>
+                                        <input type="additional_email" class="form-control" placeholder="email@example.com" id="email"
+                                            required formControlName="additional_email">
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <label for="additional_telephone" class="form-label">Telephone</label>
+                                        <input type="text" class="form-control" placeholder="()      -    " id="additional_telefone"
+                                            required formControlName="additional_telephone">
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <label for="additional_cell_phone" class="form-label">Cell Phone</label>
+                                        <input type="text" class="form-control" placeholder="()     -    " id="additional_cell_phone"
+                                            required formControlName="additional_cell_phone">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-xs-12 right">
+                                        <button class="btn btn-primary btn-sm" [disabled]="formAdditionalContact.invalid" (click)="addAdditionalContacts()">Add</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </form>
-        </div>
+                <div class="col-sm-8 col-xs-12 ml-3">                    
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div class="row">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Email</th>
+                                            <th>Telephone</th>
+                                            <th>Cell Phone</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of data.additional_contacts">
+                                            <td>{{item['email']}}</td>
+                                            <td>{{item['telephone']}}</td>
+                                            <td>{{item['cell_phone']}}</td>
+                                            <td  class="text-center">
+                                                <button class="btn btn-danger btn-sm" (click)="submitDelete(item['email'],item['id'], $event);">Delete</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-xs-12 ">
+                    <button class="btn btn-success btn-sm right" [disabled]="formContact.invalid">Save</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
-

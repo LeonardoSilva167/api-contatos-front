@@ -13,20 +13,20 @@ export class ContactIndexComponent implements OnInit {
   ){}
 
   public ngOnInit(): void {
-    this.getItems();
+    this.showData();
   }
 
   public msgError!: string;
   public contacts!: [];
 
-  public getItems(){
+  showData = async () => {    
       this.contactService.index().subscribe(res => {        
         this.contacts = res;
       })
 
   }
 
-  submitDelete(name: string, id: any){
+  submitDelete = async (name: string, id: any) => {    
     if(confirm("Confirma exclusão de: "+name)) {
       this.contactService.delete({
         id: id,

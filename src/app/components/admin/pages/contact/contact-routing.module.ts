@@ -6,9 +6,9 @@ import { ContactViewComponent } from './contact-view/contact-view.component';
 
 const routes: Routes = [
   {path: '',component: ContactIndexComponent ,pathMatch: 'full',},
-  {path: 'novo',component: ContactAddEditComponent,pathMatch: 'full',},
-  {path: 'visualizar/:id', component: ContactViewComponent, pathMatch: 'full'},
-  {path: 'editar/:id', component: ContactAddEditComponent, pathMatch: 'full'},
+  {path: 'new',component: ContactAddEditComponent,pathMatch: 'full',},
+  {path: 'view/:id', component: ContactViewComponent, pathMatch: 'full'},
+  {path: 'edit/:id', component: ContactAddEditComponent, pathMatch: 'full'},
 ];
 
 @NgModule({
