@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 //Services
-import { AuthService } from 'src/app/core/services/auth.service';
+import { ContactService } from 'src/app/services/pages/contact/contact.service';
 
 @Component({
   selector: 'app-home',
@@ -11,14 +11,22 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class HomeComponent implements OnInit {
 
   constructor(
-    private authService: AuthService,
+    private contactService: ContactService,
   ){}
 
-  ngOnInit(): void {
-    
-  }
+  numberContacts: any = 0;
 
-  public logout(){
-    this.authService.logout();
+  ngOnInit(): void {
+    this.getCountContacts();
   }
+  
+  getCountContacts = async () => {    
+    this.contactService.getCountContacts().subscribe(res => {        
+      // this.contacts = res;
+      if(res){
+        this.numberContacts = res;
+      }
+    })
+
+}
 }
