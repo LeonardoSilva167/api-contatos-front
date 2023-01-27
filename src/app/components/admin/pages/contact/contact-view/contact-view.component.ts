@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
+//Service
 import { ContactService } from 'src/app/services/pages/contact/contact.service';
 
 @Component({
@@ -17,7 +19,10 @@ export class ContactViewComponent implements OnInit {
     private contactService: ContactService,
     private activatedRoute : ActivatedRoute,
   ){}
-
+  
+  /**
+   * Array para receber os dados tela
+   */
   data: any = {
     id: '',
     name: '',
@@ -27,6 +32,9 @@ export class ContactViewComponent implements OnInit {
     additional_contacts: [],
   } 
 
+  /**
+   * Recebe informações da pagina atual
+   */
   pageData: any = {
     id: '',
     path: '',
@@ -37,8 +45,11 @@ export class ContactViewComponent implements OnInit {
     this.msgError = '';
     this.pageData.id = this.activatedRoute.snapshot.paramMap.get("id");
     this.showData();
-  }
-  
+  }  
+
+  /**
+   * Carrega os dados da tabela
+   */
   showData = async () => {  
     this.contactService.show({
       id: this.pageData.id

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { AdditionalContactService } from 'src/app/services/pages/contact/additional-contact.service';
+
+// Services
+import { AdditionalContactService } from 'src/app/services/pages/AdditionalContacts/additional-contact.service';
 import { ContactService } from 'src/app/services/pages/contact/contact.service';
 
 @Component({
@@ -59,12 +61,16 @@ export class ContactAddEditComponent implements OnInit{
     }
 
   }
-
+  
+  /**
+   * Resposavel pelo envio do formulário para o back
+   */
   submitForm(){
     if(this.formContact.valid){
       this.formContact.patchValue({
         additional_contacts: this.data.additional_contacts,
       })
+      // Verifica se a Page é Edit 
       if(this.isPageEdit()){        
         this.submitEdit()
       }
@@ -74,6 +80,9 @@ export class ContactAddEditComponent implements OnInit{
     }
   }
 
+  /**
+   * Carrega os dados da tela
+   */
   showData = async () => {    
     this.contactService.show({
       id: this.pageData.id
@@ -82,6 +91,9 @@ export class ContactAddEditComponent implements OnInit{
     })
   }
 
+  /**
+   * Envia a requisição de cadastro para o back
+   */
   submitCreate = async () => {
     this.contactService.create({
       name: this.formContact.value.name,
@@ -95,6 +107,9 @@ export class ContactAddEditComponent implements OnInit{
     })
   }
 
+  /**
+   * Envia a requisição de update para o back
+   */
   submitEdit = async () => {
     this.contactService.edit({
       id: this.pageData.id,      
@@ -109,6 +124,11 @@ export class ContactAddEditComponent implements OnInit{
     })
   }
 
+    /**
+     * Inseri dados dentro do Objeto FormGroup do formulário
+     * 
+     * @param res 
+     */
   setDataFields(res: any){
     this.formContact.patchValue({
       name: res.name, 
@@ -125,10 +145,18 @@ export class ContactAddEditComponent implements OnInit{
     }
   }
 
+  /**
+   * Verifica se a Page é Edit 
+   * 
+   * @returns 
+   */
   isPageEdit(){
     return this.pageData.id && this.pageData.path == 'edit';
   }
 
+  /**
+   * Carrega o array com os contatos adicionais inseridos 
+   */
   addAdditionalContacts(){
     if(this.formAdditionalContact.valid){
       this.data.additional_contacts.push({
@@ -138,13 +166,20 @@ export class ContactAddEditComponent implements OnInit{
         'telephone': this.formAdditionalContact.value.additional_telephone,
         'cell_phone': this.formAdditionalContact.value.additional_cell_phone,
       })
-
+      // Limpa os campos de contatos adicionais
       this.clearAdditionalContact();
     }
   }
   
+  /**
+   * Faz a requisição de delete com o back
+   * 
+   * @param name 
+   * @param id 
+   * @param event 
+   */
   submitDelete = async (name: string, id: any, event: any) => {
-    
+    // Impede que o formulario faça submit
     event.preventDefault();
     event.stopPropagation();
 
@@ -158,6 +193,11 @@ export class ContactAddEditComponent implements OnInit{
     }
   }
 
+  /**
+   * Deleta o item da tabela
+   * 
+   * @param id 
+   */
   deleteRow = async (id: any) => {
 
     for(let i = 0; i < this.data.additional_contacts.length; ++i){
@@ -167,6 +207,9 @@ export class ContactAddEditComponent implements OnInit{
     }
   }
   
+  /**
+   * Limpa os campos de contatos adicionais
+   */
   clearAdditionalContact(){
     this.formAdditionalContact.setValue({
       'additional_id': '',

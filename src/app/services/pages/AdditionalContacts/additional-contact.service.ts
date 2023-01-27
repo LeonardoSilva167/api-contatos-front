@@ -3,40 +3,30 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, map, Observable, throwError } from 'rxjs';
 
-// Services
-import { JwtHelperService } from '@auth0/angular-jwt';
-
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class AdditionalContactService {
 
-  private url: string = 'http://localhost:8000/api/v1';
+  // Rota da API
+  private url_base: string = 'http://localhost:8000/api/v1';
+  // sub-dominio da rota
+  private url_route: string = '/additional-contact';
 
   constructor(
     private http: HttpClient,
     private router: Router
   ) { }
 
+  /**
+   * Busca dados para alimentar a tela principal
+   * @returns Json
+   */
   public index(): Observable<any>{
-    return this.http.get<{ token: string}>(`${this.url}/user`).pipe(
+    return this.http.get(`${this.url_base+this.url_route}`).pipe(
       map((res) => {
         return res;
 
-      }),
-      catchError((err) => {
-        if(err.error.message) return throwError(() => err.error.message); 
-        return throwError(() => "No Momento não estamos conseguindo validar estes dados, tente novamente mais tarde");
-      })
-    )
-  }
-
-  public create(payload: {name: string, email: string,telefone: string, celular: string}): Observable<any>{
-    return this.http.post<{ token: string}>(`${this.url}/user/new`, payload).pipe(
-      map((res) => {
-        localStorage.removeItem('access_token');
-        localStorage.setItem('access_token', res.token)
-        return this.router.navigate(['admin/pessoas']);
       }),
       catchError((err) => {
         if(err.error.message) return throwError(() => err.error.message); 
@@ -45,8 +35,32 @@ export class UserService {
     )
   }
   
+  /**
+   * Resposável por enviar os dados para salvar no banco
+   * 
+   * @param payload 
+   * @returns Boolean
+   */
+  public create(payload: {name: string, email: string,telephone: string, cell_phone: string}): Observable<any>{
+    return this.http.post(`${this.url_base+this.url_route}/new`, payload).pipe(
+      map((res) => {
+        return this.router.navigate(['admin/contacts']);
+      }),
+      catchError((err) => {
+        if(err.error.message) return throwError(() => err.error.message); 
+        return throwError(() => "No Momento não estamos conseguindo validar estes dados, tente novamente mais tarde");
+      })
+    )
+  }
+  
+  /**
+   * Responsável por Exibir os dados do id selecionado
+   * 
+   * @param payload 
+   * @returns Json
+   */
   public show(payload: {id: any}): Observable<any>{
-    return this.http.get<{ token: string}>(`${this.url}/user/${payload.id}`).pipe(
+    return this.http.get(`${this.url_base+this.url_route}/${payload.id}`).pipe(
       map((res) => {
         return res;
       }),
@@ -56,26 +70,34 @@ export class UserService {
       })
       )
     }
-    
-    public edit(payload: {id: any, name: string, email: string,telefone: string, celular: string}): Observable<any>{
-      return this.http.put<{ token: string}>(`${this.url}/user/edit/${payload.id}`, payload).pipe(
+        
+    /**
+     * Faz update dos dados do id vinculado
+     * 
+     * @param payload 
+     * @returns Boolean
+     */
+    public edit(payload: {id: any, name: string, email: string,telephone: string, cell_phone: string}): Observable<any>{
+      return this.http.put(`${this.url_base+this.url_route}/edit/${payload.id}`, payload).pipe(
         map((res) => {
-          localStorage.removeItem('access_token');
-          localStorage.setItem('access_token', res.token)
-          return this.router.navigate(['admin/pessoas']);
+          return this.router.navigate(['admin/contacts']);
         }),
         catchError((err) => {
           if(err.error.message) return throwError(() => err.error.message); 
           return throwError(() => "No Momento não estamos conseguindo validar estes dados, tente novamente mais tarde");
         })
       )
-    }
-    
+    }    
+        
+    /**
+     * Remove os dados do id vinculado
+     * 
+     * @param payload 
+     * @returns Boolean
+     */
     public delete(payload: {id: any}): Observable<any>{
-      return this.http.delete<{ token: string}>(`${this.url}/user/delete/${payload.id}`).pipe(
+      return this.http.delete(`${this.url_base+this.url_route}/delete/${payload.id}`).pipe(
         map((res) => {
-          localStorage.removeItem('access_token');
-          localStorage.setItem('access_token', res.token)
           return res;
         }),
         catchError((err) => {

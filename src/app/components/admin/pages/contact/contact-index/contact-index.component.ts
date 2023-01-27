@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+
+// Service
 import { ContactService } from 'src/app/services/pages/contact/contact.service';
 
 @Component({
@@ -16,9 +18,14 @@ export class ContactIndexComponent implements OnInit {
     this.showData();
   }
 
-  public msgError!: string;
+  /**
+   * array resposanvel por armazenar as informações da lista de contatos
+   */
   public contacts!: [];
 
+  /**
+   * Carrega os dados da tabela
+   */
   showData = async () => {    
       this.contactService.index().subscribe(res => {        
         this.contacts = res;
@@ -26,6 +33,12 @@ export class ContactIndexComponent implements OnInit {
 
   }
 
+  /**
+   * Faz a requisição de delete com o back
+   * 
+   * @param name 
+   * @param id 
+   */
   submitDelete = async (name: string, id: any) => {    
     if(confirm("Confirma exclusão de: "+name)) {
       this.contactService.delete({
@@ -36,6 +49,11 @@ export class ContactIndexComponent implements OnInit {
     }
   }
 
+  /**
+   * Deleta o item da tabela
+   * 
+   * @param id 
+   */
   deleteRow(id: any){
     for(let i = 0; i < this.contacts.length; ++i){
       if (this.contacts[i]['id'] === id) {

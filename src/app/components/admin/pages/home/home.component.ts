@@ -15,18 +15,19 @@ export class HomeComponent implements OnInit {
   ){}
 
   numberContacts: any = 0;
-
+    
   ngOnInit(): void {
     this.getCountContacts();
   }
-  
+
+  /**
+   * Busca o total de contatos existentes
+   */
   getCountContacts = async () => {    
     this.contactService.getCountContacts().subscribe(res => {        
-      // this.contacts = res;
       if(res){
         this.numberContacts = res;
       }
     })
-
-}
+  }
 }

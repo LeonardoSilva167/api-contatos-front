@@ -1,21 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700&display=swap');
 
 *{
-    // padding: 0;
-    // margin: 0;
-    // outline: none;
-    // font-family: "Roboto", sans-serif;
-    // font-style: normal;
-    // font-weight: 400; 
-}
-
-body{
-    // top: 100px;
-    // height: 100vh;
-    // // background: $cinza;
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
+    outline: none;
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    font-weight: 400; 
 }
 
 .btn-add{
@@ -30,10 +19,6 @@ a:hover {
     color: #000;
 }
 
-// h2 a{
-//     color:#0d6efd;
-// }
-
 .header-content{
         display: flex;
     justify-content: center;
@@ -47,4 +32,8 @@ a:hover {
 
 .right{
     float: right !important;
+}
+
+td .btn{
+    margin-left: 5px;
 }

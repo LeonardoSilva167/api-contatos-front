@@ -2,11 +2,15 @@
     <ul class="nav col-md-12 justify-content-end">
         <li class="nav-item"><a [routerLink]="['/admin']" class="nav-link active px-2 text-muted">Home</a></li>
         <li class="nav-item"><a [routerLink]="['/admin/contacts']" class="nav-link px-2 active">Contacts</a></li>
-      </ul>
-    <div class="py-5 header-content">        
-        <a [routerLink]="['/admin/contacts']" >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M10.78 19.03a.75.75 0 0 1-1.06 0l-6.25-6.25a.75.75 0 0 1 0-1.06l6.25-6.25a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L5.81 11.5h14.44a.75.75 0 0 1 0 1.5H5.81l4.97 4.97a.75.75 0 0 1 0 1.06Z"></path></svg>
-        Voltar </a>
+    </ul>
+    <div class="py-5 header-content">
+        <a [routerLink]="['/admin/contacts']">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                <path
+                    d="M10.78 19.03a.75.75 0 0 1-1.06 0l-6.25-6.25a.75.75 0 0 1 0-1.06l6.25-6.25a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L5.81 11.5h14.44a.75.75 0 0 1 0 1.5H5.81l4.97 4.97a.75.75 0 0 1 0 1.06Z">
+                </path>
+            </svg>
+            Voltar </a>
     </div>
     <br>
     <div class="header-content">
@@ -26,7 +30,8 @@
                         <label class="form-label col-sm-12 col-xs-12">Name: <span>{{data.name}}</span></label>
                         <label class="form-label col-sm-12 col-xs-12">Email: <span>{{data.email}}</span></label>
                         <label class="form-label col-sm-12 col-xs-12">Telephone: <span>{{data.telephone}}</span></label>
-                        <label class="form-label col-sm-12 col-xs-12">Cell Phone: <span>{{data.cell_phone}}</span></label>
+                        <label class="form-label col-sm-12 col-xs-12">Cell Phone:
+                            <span>{{data.cell_phone}}</span></label>
                     </div>
                 </div>
             </div>

@@ -7,16 +7,21 @@ import { catchError, map, Observable, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class ContactService {
-
   
+  // Rota da API
   private url_base: string = 'http://localhost:8000/api/v1';
+  // sub-dominio da rota
   private url_route: string = '/contact';
 
   constructor(
     private http: HttpClient,
     private router: Router
   ) { }
-
+  
+  /**
+   * Busca dados para alimentar a tela principal
+   * @returns Json
+   */
   public index(): Observable<any>{
     return this.http.get(`${this.url_base+this.url_route}`).pipe(
       map((res) => {
@@ -29,7 +34,13 @@ export class ContactService {
       })
     )
   }
-
+  
+  /**
+   * Resposável por enviar os dados para salvar no banco
+   * 
+   * @param payload 
+   * @returns Boolean
+   */
   public create(payload: {name: string, email: string,telephone: string, cell_phone: string, additional_contacts: any}): Observable<any>{
     return this.http.post(`${this.url_base+this.url_route}/new`, payload).pipe(
       map((res) => {
@@ -41,7 +52,13 @@ export class ContactService {
       })
     )
   }
-  
+
+  /**
+   * Responsável por Exibir os dados do id selecionado
+   * 
+   * @param payload 
+   * @returns Json
+   */
   public show(payload: {id: any}): Observable<any>{
     return this.http.get(`${this.url_base+this.url_route}/${payload.id}`).pipe(
       map((res) => {
@@ -54,6 +71,12 @@ export class ContactService {
       )
     }
     
+    /**
+     * Faz update dos dados do id vinculado
+     * 
+     * @param payload 
+     * @returns Boolean
+     */
     public edit(payload: {id: any, name: string, email: string,telephone: string, cell_phone: string, additional_contacts: any}): Observable<any>{
       return this.http.put(`${this.url_base+this.url_route}/edit/${payload.id}`, payload).pipe(
         map((res) => {
@@ -66,6 +89,12 @@ export class ContactService {
       )
     }
     
+    /**
+     * Remove os dados do id vinculado
+     * 
+     * @param payload 
+     * @returns Boolean
+     */
     public delete(payload: {id: any}): Observable<any>{
       return this.http.delete(`${this.url_base+this.url_route}/delete/${payload.id}`).pipe(
         map((res) => {
@@ -78,7 +107,11 @@ export class ContactService {
       )
     }
 
-
+    /**
+     * Busca o total de Contatos ja adicionados
+     * 
+     * @returns Json
+     */
     public getCountContacts(): Observable<any>{
       return this.http.get(`${this.url_base+this.url_route}/get-count-contacts`).pipe(
         map((res) => {
