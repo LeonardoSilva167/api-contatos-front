@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+
 
 // Services
 import { AdditionalContactService } from 'src/app/services/pages/AdditionalContacts/additional-contact.service';
@@ -12,7 +13,9 @@ import { ContactService } from 'src/app/services/pages/contact/contact.service';
   styleUrls: ['./contact-add-edit.component.scss']
 })
 export class ContactAddEditComponent implements OnInit{
+  
 
+  
   public formContact: FormGroup = this.formBuilder.group({
     name: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
@@ -30,6 +33,19 @@ export class ContactAddEditComponent implements OnInit{
     additional_cell_phone: ['', [Validators.required]],
   })
 
+  
+  formContactModel: any = {
+    telephone: '',
+    cell_phone: '',
+    additional_telephone: '',
+    additional_cell_phone: '',
+  } 
+  public modelWithValue: string
+  public formControlInput: FormControl = new FormControl()
+  public maskPhone: Array<string | RegExp>
+  public maskCell: Array<string | RegExp>
+
+
   public msgError!: string;
   
   data: any = {
@@ -40,22 +56,32 @@ export class ContactAddEditComponent implements OnInit{
     id: '',
     path: '',
     name: 'New',
+    pageEdit: false,
   } 
+
+
 
   constructor(
     private formBuilder: FormBuilder,
     private contactService: ContactService,
     private additionalContactService: AdditionalContactService,
     private activatedRoute : ActivatedRoute,
-  ){}
+  ){
+    this.maskPhone = ['(', /[1-9]/, /\d/,  ')', ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+    this.maskCell =  ['(', /[1-9]/, /\d/,  ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+    
+    
+    this.modelWithValue = '5554441234'
+    this.formControlInput.setValue('5555551234')
+
+  }
   
   public ngOnInit(): void {
     this.msgError = '';
     this.pageData.id = this.activatedRoute.snapshot.paramMap.get("id");
     this.pageData.path = this.activatedRoute.snapshot.url[0].path;
-    
-    
-    if(this.isPageEdit()){
+    this.pageData.pageEdit = this.isPageEdit();
+    if(this.pageData.pageEdit){
       this.showData();
       this.pageData.name = 'Edit';
     }
@@ -71,7 +97,7 @@ export class ContactAddEditComponent implements OnInit{
         additional_contacts: this.data.additional_contacts,
       })
       // Verifica se a Page é Edit 
-      if(this.isPageEdit()){        
+      if(this.pageData.pageEdit){        
         this.submitEdit()
       }
       else{
@@ -199,7 +225,6 @@ export class ContactAddEditComponent implements OnInit{
    * @param id 
    */
   deleteRow = async (id: any) => {
-
     for(let i = 0; i < this.data.additional_contacts.length; ++i){
       if (this.data.additional_contacts[i]['id'] === id) {
         this.data.additional_contacts.splice(i,1);

@@ -29,9 +29,9 @@
                     <div class="row">
                         <label class="form-label col-sm-12 col-xs-12">Name: <span>{{data.name}}</span></label>
                         <label class="form-label col-sm-12 col-xs-12">Email: <span>{{data.email}}</span></label>
-                        <label class="form-label col-sm-12 col-xs-12">Telephone: <span>{{data.telephone}}</span></label>
+                        <label class="form-label col-sm-12 col-xs-12">Telephone: <span>{{data.telephone | phone}}</span></label>
                         <label class="form-label col-sm-12 col-xs-12">Cell Phone:
-                            <span>{{data.cell_phone}}</span></label>
+                            <span>{{data.cell_phone | phone}}</span></label>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <div class="row">
-                        <table class="table">
+                        <table class="table table-responsive">
                             <thead>
                                 <tr>
                                     <th>Email</th>
@@ -52,8 +52,8 @@
                             <tbody>
                                 <tr *ngFor="let item of data.additional_contacts">
                                     <td>{{item['email']}}</td>
-                                    <td>{{item['telephone']}}</td>
-                                    <td>{{item['cell_phone']}}</td>
+                                    <td>{{item['telephone'] | phone}}</td>
+                                    <td>{{item['cell_phone'] | phone}}</td>
                                 </tr>
                             </tbody>
                         </table>

@@ -65,7 +65,10 @@ export class ContactService {
         return res;
       }),
       catchError((err) => {
-        if(err.error.message) return throwError(() => err.error.message); 
+        if(err.error.error){
+          return this.router.navigate(['**']);
+        }
+        else if(err.error.message) return throwError(() => err.error.message); 
         return throwError(() => "No Momento não estamos conseguindo validar estes dados, tente novamente mais tarde");
       })
       )

@@ -10,6 +10,7 @@ import { HomeComponent } from './pages/home/home.component';
 
 
 
+
 @NgModule({
   declarations: [
     HomeComponent,    
@@ -17,6 +18,7 @@ import { HomeComponent } from './pages/home/home.component';
   imports: [
     CommonModule,
     AdminRoutingModule,
+    
   ]
 })
 export class AdminModule { }

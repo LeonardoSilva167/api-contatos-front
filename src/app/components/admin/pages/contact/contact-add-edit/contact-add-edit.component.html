@@ -16,6 +16,9 @@
     <div class="header-content mb-4">
         <h2> Contacts - {{pageData.name }}</h2>
     </div>
+    <div *ngIf="this.pageData.pageEdit" class="py-5" class="btn-add">
+        <a [routerLink]="['/admin/contacts/new']" class="btn btn-success btn-sm">New</a>
+    </div>
     <hr class="py-5">
     <div class="row g-2">
         <form [formGroup]="formContact" (ngSubmit)="submitForm()" action="">
@@ -36,13 +39,15 @@
                                 </div>
                                 <div class="col-sm-3 col-xs-12">
                                     <label for="telephone" class="form-label">Telephone</label>
-                                    <input type="text" class="form-control" placeholder="()      -    " id="telefone"
-                                        required formControlName="telephone">
+                                    <input id="telephone" name="telephone" formControlName="telephone"
+                                        [(ngModel)]="formContactModel.telephone" [textMask]="{mask: maskPhone}"
+                                        type="text" class="form-control" />
                                 </div>
                                 <div class="col-sm-3 col-xs-12">
                                     <label for="cell_phone" class="form-label">Cell Phone</label>
-                                    <input type="text" class="form-control" placeholder="()     -    " id="cell_phone"
-                                        required formControlName="cell_phone">
+                                    <input id="cell_phone" name="cell_phone" formControlName="cell_phone"
+                                        [(ngModel)]="formContactModel.cell_phone" [textMask]="{mask: maskCell}" required
+                                        type="text" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -65,13 +70,19 @@
                                     </div>
                                     <div class="col-xs-12">
                                         <label for="additional_telephone" class="form-label">Telephone</label>
-                                        <input type="text" class="form-control" placeholder="()      -    "
-                                            id="additional_telefone" required formControlName="additional_telephone">
+                                        <input id="additional_telephone" name="additional_telephone"
+                                            formControlName="additional_telephone"
+                                            [(ngModel)]="formContactModel.additional_telephone"
+                                            [textMask]="{mask: maskPhone}" required type="text" class="form-control"
+                                            placeholder="()     -    ">
                                     </div>
                                     <div class="col-xs-12">
                                         <label for="additional_cell_phone" class="form-label">Cell Phone</label>
-                                        <input type="text" class="form-control" placeholder="()     -    "
-                                            id="additional_cell_phone" required formControlName="additional_cell_phone">
+                                        <input id="additional_cell_phone" name="additional_cell_phone"
+                                            formControlName="additional_cell_phone"
+                                            [(ngModel)]="formContactModel.additional_cell_phone"
+                                            [textMask]="{mask: maskCell}" required type="text" class="form-control"
+                                            placeholder="()     -    ">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -89,7 +100,7 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <div class="row">
-                                <table class="table">
+                                <table class="table table-responsive">
                                     <thead>
                                         <tr>
                                             <th>Email</th>
@@ -101,8 +112,8 @@
                                     <tbody>
                                         <tr *ngFor="let item of data.additional_contacts">
                                             <td>{{item['email']}}</td>
-                                            <td>{{item['telephone']}}</td>
-                                            <td>{{item['cell_phone']}}</td>
+                                            <td>{{item['telephone'] | phone}}</td>
+                                            <td>{{item['cell_phone'] | phone}}</td>
                                             <td class="text-center">
                                                 <button class="btn btn-danger btn-sm"
                                                     (click)="submitDelete(item['email'],item['id'], $event);">Delete</button>

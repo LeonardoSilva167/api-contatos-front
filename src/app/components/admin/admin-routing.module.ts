@@ -7,7 +7,7 @@ import { HomeComponent } from './pages/home/home.component';
 
 const routes: Routes = [
   {path: '',component: HomeComponent ,pathMatch: 'full',},
-  {path: 'admin/contacts',loadChildren: () => import('./pages/contact/contact.module').then((m) => m.ContactModule),},
+  {path: 'contacts',loadChildren: () => import('./pages/contact/contact.module').then((m) => m.ContactModule),},
 ];
 
 @NgModule({
